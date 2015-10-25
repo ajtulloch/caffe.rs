@@ -1,0 +1,62 @@
+language: rust
+
+rust:
+- nightly
+
+compiler: gcc
+
+cache:
+  apt: true
+  directories:
+  - "/home/travis/miniconda"
+  - "/home/travis/miniconda2"
+  - "/home/travis/miniconda3"
+
+env:
+  global:
+  - TRAVIS_CARGO_NIGHTLY_FEATURE=""
+  - LIBCLANG_PATH=/usr/lib/llvm-3.4/lib
+  - CAFFE_ROOT=/home/travis/caffe
+  - NUM_THREADS=4
+  - secure: msTi6IGTtWSt4LIKsfle/I6mRaXQ2v8S6iT01I8XkVMD/IGnc/GudrVebvOI8FhGA1Ez0ymLmBuG8jo5ZCIbD9/pbcP3XQ+RkImfiUpfu9vezmNgK4rV41E0kuFFdLaesYlVqmYBPgHJ87D60/nmyemaCjM1MKvVaiytQn64PLVyFZYi4DVKZD7QAhCHvV6id/P1ts9f7N+8gFJWpqT0MfX6Qssjh7qpstTaTEn+f26wnFIPXiLcRr0aTPRodDgXrWmK2uaBGgs43Mrrwxd4cu9b8QfZmh30leYJODAu9odn3eMdCiS+4si42GtASJMH/DkfJak5VHsdnfJ5ll5B9GgxYOp01RW5l9OoGiiXXEDfQPC0dc0nwZxjwfDsCB80aUj0RN4ySIBOGShmTAp5XCAuJNW+wgKkhC84du78iQXKSW4OwNTYmXFzhdDE1sW2Q+PSZnfFhahmamy9JOnhj3ihuOrpTUfkkFEqmN0GvUqfkbixrN0py1wYgnRGeO+FZrKw31V8sDWhhjdbIcc5ey0OQSzuu/aBL3ioXyfNyhlZadrVgE/9lxMo6n5yRZMYCbiy7S+GtauMCEcXQ3t/1VgZhmZ2s8QFefzczKmKYTnMXTWyEE/tdQWHtB7qO+/SgxQY370Uxhk7S39QOTziOnWflOuTK0XIhbeGNQvgJbM=
+  matrix:
+  - WITH_CUDA=false WITH_CMAKE=false WITH_IO=true
+
+install:
+- export SCRIPTS="$CAFFE_ROOT/scripts/travis"
+- export CONDA_DIR="/home/travis/miniconda$PYTHON_VERSION"
+- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64:$CONDA_DIR/lib:$CAFFE_ROOT/.build_release/lib
+- pip install 'travis-cargo<0.2' --user
+- export PATH=$HOME/.local/bin:$PATH
+- export PATH=$CONDA_DIR/bin:$PATH
+- export SCRIPTS="$CAFFE_ROOT/scripts/travis"
+- git clone -b caffe-ffi https://github.com/ajtulloch/caffe "$CAFFE_ROOT"
+- "(cd $CAFFE_ROOT && sudo -E $SCRIPTS/travis_install.sh)"
+- "(cd $CAFFE_ROOT && if ! $WITH_CMAKE; then $SCRIPTS/travis_setup_makefile_config.sh;
+  fi)"
+- pip install 'travis-cargo<0.2' --user
+- export PATH=$HOME/.local/bin:$PATH
+
+script:
+- "(cd $CAFFE_ROOT && $SCRIPTS/travis_build_and_test.sh)"
+- travis-cargo build
+- travis-cargo test
+- travis-cargo bench
+- travis-cargo --only nightly doc
+
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+    - libelf-dev
+    - libdw-dev
+    - libclang-3.4-dev
+    - build-essential
+
+after_success:
+- travis-cargo --only nightly doc-upload
+- travis-cargo coveralls --no-sudo
+
+notifications:
+  email:
+    on_success: never

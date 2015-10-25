@@ -1,0 +1,17 @@
+[package]
+name = "caffe"
+version = "0.1.0"
+authors = ["Andrew Tulloch <andrew@tullo.ch>"]
+build = "build.rs"
+description = "Caffe FFI bindings for Rust"
+license = "BSD-3-Clause"
+homepage = "https://github.com/ajtulloch/caffe.rs/"
+documentation = "https://github.com/ajtulloch/caffe.rs/"
+repository = "https://github.com/ajtulloch/caffe.rs/"
+
+[dependencies]
+libc = "0.1"
+clippy = "*"
+
+[build-dependencies]
+bindgen = "0.15"

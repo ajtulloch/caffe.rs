@@ -1,0 +1,45 @@
+* =caffe.rs=
+[[https://travis-ci.org/ajtulloch/caffe.rs][https://travis-ci.org/ajtulloch/caffe.rs.svg?branch=master]]
+
+A Rust FFI wrapper for the [[http://caffe.berkeleyvision.org/][Caffe]] deep learning library, using [[https://github.com/crabtw/rust-bindgen][rust-bindgen]].
+
+** Setup
+Requires a =caffe= distribution built with the patches in
+=ajtulloch/caffe:caffe-ffi= (https://github.com/ajtulloch/caffe/tree/caffe-ffi)
+to expose the necessary structures over FFI.
+
+You can clone and build that repository as usual. Set the =CAFFE_ROOT=
+environment variable to allow the =build.rs= script to correctly generate
+dependencies.
+** Example
+*** Inference on a pre-trained network
+#+BEGIN_SRC rust
+  // Create the newtork
+  let mut net = caffe::Net::new(Path::new("test-data/lenet.prototxt"),
+                                caffe::Phase::Test);
+  // Initialize the weights
+  net.copy_trained_layers_from(Path::new("test-data/lenet.caffemodel"));
+
+  // Fill in the input data blob.
+  let mut data_blob = net.blob("data");
+  let mut ones: Vec<_> = repeat(1.0 as f32)
+                         .take(data_blob.len())
+                         .collect();
+  data_blob.set_data(ones.as_mut_slice());
+
+  // Run a foward pass.
+  net.forward_prefilled();
+  let prob_blob = net.blob("prob");
+
+  // Process the output probabilities.
+  let probs = prob_blob.as_slice();
+  println!("{:?}", probs.to_vec());
+  assert_eq!(probs[0], 0.06494621)
+#+END_SRC
+
+*** Running a solver
+#+BEGIN_SRC rust
+  let mut solver = caffe::Solver::new(
+      Path::new("test-data/lenet_solver.prototxt"));
+  solver.solve();
+#+END_SRC
