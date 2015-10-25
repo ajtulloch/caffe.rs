@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Net` struct in crate `caffe`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Net">
+
+    <title>caffe::Net - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>caffe</a></p><script>window.sidebarCurrent = {name: 'Net', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>caffe</a>::<wbr><a class='struct' href=''>Net</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-41' class='srclink' href='../src/caffe/net.rs.html#9-11' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Net {
+    // some fields omitted
+}</pre><div class='docblock'><p>A wrapper around a caffe::Net</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../caffe/struct.Net.html' title='caffe::Net'>Net</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(path: &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>, phase: <a class='enum' href='../caffe/enum.Phase.html' title='caffe::Phase'>Phase</a>) -&gt; <a class='struct' href='../caffe/struct.Net.html' title='caffe::Net'>Net</a></code></h4>
+<div class='docblock'><p>Construct a caffe::Net from a serialized caffe::NetParameter and a Phase.</p>
+</div><h4 id='method.wrap' class='method'><code>fn <a href='#method.wrap' class='fnname'>wrap</a>(net: <a class='struct' href='https://doc.rust-lang.org/nightly/core/ptr/struct.Unique.html' title='core::ptr::Unique'>Unique</a>&lt;<a class='enum' href='../caffe/ffi/enum.Struct_CaffeNet.html' title='caffe::ffi::Struct_CaffeNet'>Struct_CaffeNet</a>&gt;) -&gt; <a class='struct' href='../caffe/struct.Net.html' title='caffe::Net'>Net</a></code></h4>
+<div class='docblock'><p>Wrap an existing caffe::Net over FFI.</p>
+</div><h4 id='method.copy_trained_layers_from' class='method'><code>fn <a href='#method.copy_trained_layers_from' class='fnname'>copy_trained_layers_from</a>(&amp;mut self, path: &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>)</code></h4>
+<div class='docblock'><p>Set the weights of the network from the binary serialized caffe::NetParameter.</p>
+</div><h4 id='method.blob' class='method'><code>fn <a href='#method.blob' class='fnname'>blob</a>(&amp;mut self, name: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../caffe/struct.Blob.html' title='caffe::Blob'>Blob</a></code></h4>
+<div class='docblock'><p>Extract a pointer to the blob in the net.</p>
+</div><h4 id='method.forward_prefilled' class='method'><code>fn <a href='#method.forward_prefilled' class='fnname'>forward_prefilled</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Run a forward pass on the prefilled input blobs.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../caffe/struct.Net.html' title='caffe::Net'>Net</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "caffe";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

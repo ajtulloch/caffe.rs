@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Mode","The computation mode that Caffe runs with."],["Phase","The computation phase that Caffe runs with."]],"fn":[["set_mode","Set the computation mode to CPU/GPU"]]});

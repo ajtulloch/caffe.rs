@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Net","A wrapper around a caffe::Net"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Solver","A wrapper around a caffe::Solver for training networks."]]});

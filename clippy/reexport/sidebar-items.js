@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Ident","An identifier contains a Name (index into the interner table) and a SyntaxContext to track renaming and macro expansion per Flatt et al., \"Macros That Work Together\""],["Name","A name is a part of an identifier, representing a string or gensym. It's the result of interning."]],"type":[["NodeId",""]]});
